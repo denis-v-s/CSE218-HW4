@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="150.0" minWidth="300.0" prefHeight="500.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AppController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#setInputFile" text="Browse" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextArea fx:id="txtLoaded" layoutX="10.0" layoutY="73.0" minHeight="110.0" minWidth="280.0" prefHeight="244.0" prefWidth="430.0" />
+      <TextField fx:id="txtN" layoutX="287.0" layoutY="370.0" prefHeight="25.0" prefWidth="50.0" text="5" />
+      <TextArea fx:id="txtProcessed" layoutX="10.0" layoutY="403.0" prefHeight="83.0" prefWidth="430.0" />
+      <Label layoutX="11.0" layoutY="50.0" text="Loaded file:" />
+      <Label layoutX="25.0" layoutY="344.0" text="Processed data:" />
+      <Label layoutX="177.0" layoutY="374.0" text="Number of words:" />
+      <Button layoutX="346.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnProcess" prefHeight="25.0" prefWidth="90.0" text="Process" />
+      <Label layoutX="205.0" layoutY="344.0" text="Parent word:" />
+      <TextField fx:id="txtParentWord" layoutX="287.0" layoutY="340.0" text="many" />
+      <Button layoutX="376.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnLoadFile" text="Load File" />
+   </children>
+</AnchorPane>
