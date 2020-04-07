@@ -91,6 +91,7 @@ public class AppController implements Initializable {
   // n: number of random links to return as a concatenated string
   public String getRandomWords(String word, int n) {
     MasterLink<String> node = (MasterLink<String>) masterIter.getLinkReference(word);
+    String randomWord;
     
     if (node == null) {
       return "no such word in master linked list";
@@ -98,7 +99,9 @@ public class AppController implements Initializable {
     
     StringBuilder result = new StringBuilder();
     for (int i = 0; i < n; i++) {
-      result.append(masterIter.getRandomLinkValue(node) + " ");
+      randomWord = masterIter.getRandomLinkValue(node);
+      result.append(randomWord + " ");
+      node = (MasterLink<String>) masterIter.getLinkReference(randomWord);
     }
     
     return result.toString();

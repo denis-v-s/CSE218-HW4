@@ -26,6 +26,5 @@
       <Button layoutX="346.0" layoutY="370.0" mnemonicParsing="false" onAction="#btnProcess" prefHeight="25.0" prefWidth="90.0" text="Process" />
       <Label layoutX="205.0" layoutY="344.0" text="Parent word:" />
       <TextField fx:id="txtParentWord" layoutX="287.0" layoutY="340.0" text="many" />
-      <Button layoutX="376.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnLoadFile" text="Load File" />
    </children>
 </AnchorPane>
