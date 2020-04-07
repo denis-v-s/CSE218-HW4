@@ -16,27 +16,26 @@ public class ListIterator<T> {
   }
   
   public boolean atEnd() {
-    return current.next == null;
+    return current.getNext() == null;
   }
   
   public void nextLink() {
     previous = current;
-    current = current.next;
+    current = current.getNext();
   }
   
   public Link<T> getCurrent() {
     return current;
   }
   
-  public Link<T> insertAfter(T data) {
-    Link<T> newLink = new Link<T>(data);
+  public Link<T> insertAfter(Link<T> newLink) {
     if (list.isEmpty()) {
       list.setFirst(newLink);
       current = newLink;
     }
     else {
-      newLink.next = current.next;
-      current.next = newLink;
+      newLink.setNext(current.getNext());
+      current.setNext(newLink);
       nextLink();
     }
     
@@ -45,59 +44,58 @@ public class ListIterator<T> {
     return newLink;
   }
   
-  public void insertBefore(T data) {
-    Link<T> newLink = new Link<T>(data);
-    if (previous == null) { // if first item
-      newLink.next = list.getFirst();
-      list.setFirst(newLink);
-      reset();
-    }
-    else {
-      newLink.next = previous.next;
-      previous.next = newLink;
-      current = newLink;
-    }
-    this.list.setSize(this.list.getSize() + 1);
-  }
+//  public void insertBefore(Link<T> newLink) {
+//    if (previous == null) { // if first item
+//      newLink.next = list.getFirst();
+//      list.setFirst(newLink);
+//      reset();
+//    }
+//    else {
+//      newLink.next = previous.next;
+//      previous.next = newLink;
+//      current = newLink;
+//    }
+//    this.list.setSize(this.list.getSize() + 1);
+//  }
   
   // go through the list and return the link associated with queried data
   // return null if not found;
   public Link<T> getLinkReference(T data) {
     Link<T> cur = list.getFirst();
     while (cur != null) {
-      if (cur.data.equals(data)) {
+      if (cur.getData().equals(data)) {
         return cur;
       }
-      cur = cur.next;
+      cur = cur.getNext();
     }
     
     return null;
   }
   
-  public boolean contains(T data) {
-    Link<T> cur = list.getFirst();
-    while (cur != null) {
-      if (cur.data.equals(data)) {
-        return true;
-      }
-      cur = cur.next;
-    }
-    return false;
-  }
+//  public boolean contains(T data) {
+//    Link<T> cur = list.getFirst();
+//    while (cur != null) {
+//      if (cur.data.equals(data)) {
+//        return true;
+//      }
+//      cur = cur.next;
+//    }
+//    return false;
+//  }
     
   public T deleteCurrent() {
-    T value = current.data;
+    T value = current.getData();
     if (previous == null) {
       list.setFirst(current);
       reset();
     }
     else {
-      previous.next = current.next;
+      previous.setNext(current.getNext());
       if (atEnd()) {
         reset();
       }
       else {
-        current = current.next;
+        current = current.getNext();
       }
     }
     
@@ -105,15 +103,15 @@ public class ListIterator<T> {
     return value;
   }
   
-  public T getRandomLinkValue(Link<T> node) {
-    ListIterator<T> iter = node.followers.getIterator();
+  public T getRandomLinkValue(MasterLink<T> node) {
+    ListIterator<T> iter = node.babyList.getIterator();
     iter.reset();
     
-    int randomIndex = (int) (Math.random() * node.followers.getSize());
+    int randomIndex = (int) (Math.random() * node.babyList.getSize());
     for (int i = 0; i < randomIndex; i++) {
       iter.nextLink();
     }
     
-    return iter.getCurrent().data;
+    return iter.getCurrent().getData();
   }
 }

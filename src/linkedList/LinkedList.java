@@ -1,7 +1,5 @@
 package linkedList;
 
-import java.util.stream.IntStream;
-
 public class LinkedList<T> {
   private Link<T> first;
   private ListIterator<T> iterator = null;
@@ -45,20 +43,20 @@ public class LinkedList<T> {
     Link<T> current = first;
     while (current != null) {
       current.display();
-      current = current.next;
+      current = current.getNext();
     }
     System.out.println();
   }
 
-  public static void main(String[] args) {
-    LinkedList<String> list = new LinkedList<>();
-    ListIterator<String> iter1 = list.getIterator();
-    iter1.insertAfter("1");
-    iter1.insertAfter("2");
-    iter1.insertAfter("3");
-    //iter1.insertBefore(0);
-    iter1.insertAfter("4");
-    //iter1.insertBefore(-1);
-    list.display();
-  }
+//  public static void main(String[] args) {
+//    MasterLinkedList<String> list = new MasterLinkedList<>();
+//    ListIterator<String> iter1 = list.getIterator();
+//    iter1.insertAfter("1");
+//    iter1.insertAfter("2");
+//    iter1.insertAfter("3");
+//    //iter1.insertBefore(0);
+//    iter1.insertAfter("4");
+//    //iter1.insertBefore(-1);
+//    list.display();
+//  }
 }

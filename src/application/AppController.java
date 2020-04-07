@@ -12,8 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import linkedList.Link;
-import linkedList.LinkedList;
+import linkedList.MasterLink;
+import linkedList.MasterLinkedList;
+import linkedList.BabyLink;
 import linkedList.ListIterator;
 
 public class AppController implements Initializable {
@@ -24,7 +25,7 @@ public class AppController implements Initializable {
   
   private Stage stage;
   private Path dir = Paths.get("").toAbsolutePath().resolve("data/");
-  private LinkedList<String> masterList;
+  private MasterLinkedList<String> masterList;
   private ListIterator<String> masterIter;
   private ListIterator<String> childIter;
   private String inputFile = dir.resolve("blowingInTheWind.txt").toString();
@@ -46,25 +47,25 @@ public class AppController implements Initializable {
   }
   
   public void processFileContent(String inputFile) {
-    masterList = new LinkedList<>();
+    masterList = new MasterLinkedList<>();
     masterIter = masterList.getIterator();
     
     try (FileReader fr = new FileReader(inputFile); BufferedReader reader = new BufferedReader(fr)) {
       String line;
-      Link<String> node = null;
+      MasterLink<String> node = null;
       
       while ((line = reader.readLine()) != null) {
         for(String word : line.split(" ")) {
           // add a word that follows
           if (node != null) {
-            childIter = node.followers.getIterator();
-            childIter.insertAfter(word);
+            childIter = node.babyList.getIterator();
+            childIter.insertAfter(new BabyLink<String>(word));
           }
           
-          node = masterIter.getLinkReference(word);
+          node = (MasterLink<String>) masterIter.getLinkReference(word);
           // if this is a new word, then add it to the master list
           if (node == null) {
-            node = masterIter.insertAfter(word);
+            node = (MasterLink<String>) masterIter.insertAfter(new MasterLink<String>(word));
           }
         }
       }
@@ -89,7 +90,7 @@ public class AppController implements Initializable {
   //word: parent node from the master linked list
   // n: number of random links to return as a concatenated string
   public String getRandomWords(String word, int n) {
-    Link<String> node = masterIter.getLinkReference(word);
+    MasterLink<String> node = (MasterLink<String>) masterIter.getLinkReference(word);
     
     if (node == null) {
       return "no such word in master linked list";
@@ -109,14 +110,14 @@ public class AppController implements Initializable {
     masterIter.reset();
     while (masterIter.getCurrent() != null) {
       // show the parent node
-      Link<String> node = masterIter.getCurrent();
-      content.append(node.data + " ");
+      MasterLink<String> node = (MasterLink<String>) masterIter.getCurrent();
+      content.append(node.getData() + " ");
       
       // show the child nodes
-      childIter = node.followers.getIterator();
+      childIter = node.babyList.getIterator();
       childIter.reset();
       while (childIter.getCurrent() != null) {
-        content.append(childIter.getCurrent().data + " ");
+        content.append(childIter.getCurrent().getData() + " ");
         childIter.nextLink();
       }
       
